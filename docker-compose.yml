@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: formbricks_postgres
+    environment:
+      POSTGRES_DB: formbricks
+      POSTGRES_USER: formbricks
+      POSTGRES_PASSWORD: formbricks
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U formbricks"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  formbricks:
+    image: formbricks/formbricks:latest
+    container_name: formbricks_app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://formbricks:formbricks@postgres:5432/formbricks
+      NEXTAUTH_SECRET: your-secret-key-change-in-production-12345
+      NEXTAUTH_URL: http://localhost:3000
+      ENCRYPTION_KEY: your-encryption-key-change-in-production-12345
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - formbricks_data:/app/packages/database/prisma
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+  formbricks_data:
+    driver: local
+
+networks:
+  default:
+    name: formbricks_network

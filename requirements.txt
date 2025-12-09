@@ -1,0 +1,22 @@
+# Core
+click==8.1.7
+requests==2.31.0
+python-dotenv==1.0.0
+rich==13.7.0
+
+# Docker
+docker==7.0.0
+python-on-whales==0.67.0
+
+# LLM
+openai==1.12.0
+ollama==0.1.6
+
+# Data
+pydantic==2.5.3
+faker==23.2.0
+
+# Utilities
+tenacity==8.2.3
+python-dateutil==2.8.2
+jsonschema==4.20.0
