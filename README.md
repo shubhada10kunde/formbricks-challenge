@@ -1,29 +1,41 @@
 # Formbricks Hiring Challenge Solution
 
-A complete implementation that uses **real Formbricks APIs** and **real LLM APIs** to generate and seed realistic data.
+A Python CLI tool that uses **real Formbricks APIs** and **Ollama (free LLM)** to generate and seed realistic survey data.
 
-## ✅ Requirements Met
+## 🎯 Challenge Requirements Met
 
-- [x] **Real Formbricks Management API** for creating surveys/users
-- [x] **Real Formbricks Client API** for submitting responses
-- [x] **Real LLM API** (OpenAI/Ollama) for data generation
-- [x] **NO database access** - pure API approach only
-- [x] **Docker Compose** for local Formbricks instance
-- [x] **5 unique surveys** with realistic questions
-- [x] **At least 1 response per survey**
-- [x] **10 unique users** with Manager/Owner permissions
+- ✅ **Real Formbricks Management API** for creating surveys/users
+- ✅ **Real Formbricks Client API** for submitting responses
+- ✅ **Real LLM API** (Ollama - free and local) for data generation
+- ✅ **NO database access** - pure API approach only
+- ✅ **Docker Compose** for local Formbricks instance
+- ✅ **5 unique surveys** with realistic questions
+- ✅ **At least 1 response per survey** (total 5+ responses)
+- ✅ **10 unique users** with Manager/Owner permissions
 
 ## 🚀 Quick Start
 
-### 1. Prerequisites
+### Prerequisites
+
+- Docker & Docker Compose
+- Python 3.8+
+- Ollama (free, local LLM)
+
+### Installation
+
+1. **Clone and setup:**
 
 ```bash
-# Install Docker Desktop
-https://www.docker.com/products/docker-desktop/
+git clone <repository-url>
+cd formbricks-challenge
 
-# Install Python 3.8+
-python --version
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Get OpenAI API key
-https://platform.openai.com/api-keys
+# Install dependencies
+pip install -r requirements.txt
+
+# Copy environment file
+cp .env.example .env
 ```
