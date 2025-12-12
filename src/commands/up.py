@@ -54,10 +54,21 @@ def wait_for_formbricks(timeout: int = 180) -> bool:
     with Status("[bold blue]Waiting for Formbricks...", console=console):
         while time.time() - start_time < timeout:
             try:
-                response = requests.get(f"{url}/api/health", timeout=5)
+                # Try the main page first (most reliable)
+                response = requests.get(f"{url}/", timeout=5)
                 if response.status_code == 200:
                     console.print(f"\n[green]✓ Formbricks is ready![/green]")
                     return True
+                
+                # Also try the health endpoint
+                try:
+                    response = requests.get(f"{url}/api/v1/management/health", timeout=5)
+                    if response.status_code == 200:
+                        console.print(f"\n[green]✓ Formbricks API is ready![/green]")
+                        return True
+                except:
+                    pass
+                    
             except requests.exceptions.RequestException:
                 pass
             
@@ -68,11 +79,12 @@ def wait_for_formbricks(timeout: int = 180) -> bool:
                     capture_output=True, text=True
                 )
                 if "formbricks" in result.stdout:
-                    console.print(f"[dim]Formbricks container is running...[/dim]")
+                    # console.print(f"[dim]Formbricks container is running...[/dim]")
+                    pass  # Don't print this every time
             except:
                 pass
             
-            time.sleep(5)
+            time.sleep(3)  # Reduced from 5 to 3 seconds
     
     console.print("[red]✗ Formbricks failed to start within timeout[/red]")
     return False

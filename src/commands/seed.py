@@ -85,11 +85,12 @@ def seed_command(api_key, data_dir, base_url, skip_users, skip_responses):
         base_url = Config.FORMBRICKS_URL
     
     # Check if Formbricks is running
+    # if not api.health_check():
+    #     console.print("[red]✗ Formbricks is not running[/red]")
+    #     console.print("Start it with: python main.py formbricks up")
+    #     return
+    
     api = FormbricksAPI(base_url=base_url)
-    if not api.health_check():
-        console.print("[red]✗ Formbricks is not running[/red]")
-        console.print("Start it with: python main.py formbricks up")
-        return
     
     # Load data
     try:

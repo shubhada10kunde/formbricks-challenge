@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import subprocess
 import sys
 import os
@@ -40,45 +39,45 @@ def check_env_file():
     if env_file.exists():
         with open(env_file) as f:
             content = f.read()
-            # Check for Ollama config instead of OpenAI
+        
             return "OLLAMA_URL=" in content and "FORMBRICKS_API_KEY=" in content
     return False
 
 def main():
-    print("🔍 Verifying setup...")
+    print(" Verifying setup...")
     
     # Check Docker
     if check_docker():
-        print("✅ Docker is installed")
+        print(" Docker is installed")
     else:
-        print("❌ Docker not found")
+        print(" Docker not found")
         print("   Install from: https://www.docker.com/products/docker-desktop/")
     
     # Check Python packages
     missing = check_python_packages()
     if not missing:
-        print("✅ All Python packages installed")
+        print(" All Python packages installed")
     else:
-        print(f"❌ Missing packages: {', '.join(missing)}")
+        print(f"Missing packages: {', '.join(missing)}")
         print("   Install with: pip install -r requirements.txt")
     
     # Check Ollama
     if check_ollama():
-        print("✅ Ollama is running")
+        print("Ollama is running")
     else:
-        print("❌ Ollama not running")
+        print(" Ollama not running")
         print("   Install from: https://ollama.com/")
         print("   Then run: ollama serve")
     
     # Check .env file
     if check_env_file():
-        print("✅ .env file exists with Ollama and Formbricks config")
+        print(" .env file exists with Ollama and Formbricks config")
     else:
         print("⚠ .env file missing or incomplete")
         print("   Copy .env.example to .env")
         print("   Make sure it has OLLAMA_URL and FORMBRICKS_API_KEY")
     
-    print("\n📋 Next steps:")
+    print("\n Next steps:")
     print("1. Make sure Docker Desktop is running")
     print("2. Run: python main.py formbricks up")
     print("3. Setup your Formbricks admin account at http://localhost:3000")

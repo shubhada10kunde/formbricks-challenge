@@ -213,7 +213,7 @@ Generate the survey now. Return ONLY the JSON, no other text:"""
         try:
             result = await self._generate_with_ollama(prompt, system_prompt)
             
-            # Extract JSON from response (Ollama sometimes adds extra text)
+            # Extract JSON from response 
             import re
             json_match = re.search(r'\{.*\}', result, re.DOTALL)
             

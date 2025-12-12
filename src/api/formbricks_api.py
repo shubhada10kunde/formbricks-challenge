@@ -98,9 +98,7 @@ class FormbricksAPI:
     
     def create_user(self, user_data: Dict) -> Optional[Dict]:
         """Create a user using Management API"""
-        # Note: Formbricks might require different endpoint for user creation
-        # This is typically done via invitation in UI
-        # For this challenge, we'll use a workaround
+
         console.print("[yellow]Note: User creation via API might require invitation flow[/yellow]")
         return self._make_management_request("POST", "/users/invite", user_data)
     
@@ -134,7 +132,6 @@ class FormbricksAPI:
     
     def create_api_key(self, name: str = "Seeder API Key") -> Optional[str]:
         """Create an API key programmatically (if supported)"""
-        # This might require admin authentication
         data = {
             "name": name,
             "type": "management"

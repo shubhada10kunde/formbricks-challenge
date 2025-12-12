@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     container_name: formbricks_postgres
     environment:
       POSTGRES_DB: formbricks
@@ -12,7 +10,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U formbricks"]
       interval: 5s
@@ -20,17 +18,19 @@ services:
       retries: 5
 
   formbricks:
-    image: formbricks/formbricks:latest
+    image: formbricks/formbricks:2.0.0
     container_name: formbricks_app
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: postgresql://formbricks:formbricks@postgres:5432/formbricks
-      NEXTAUTH_SECRET: your-secret-key-change-in-production-12345
+      NEXTAUTH_SECRET: "my-super-secret-nextauth-key-with-32-chars"
       NEXTAUTH_URL: http://localhost:3000
-      ENCRYPTION_KEY: your-encryption-key-change-in-production-12345
-      ADMIN_EMAIL: admin@example.com
-      ADMIN_PASSWORD: admin
+      ENCRYPTION_KEY: "1234567890123456789012345678901234567890123456789012345678901234"
+      CRON_SECRET: "cron-secret-1234567890"
+      WEBAPP_URL: http://localhost:3000
+      MANAGEMENT_API_INSECURE_HTTP: "true"
+      HTTPS_ENABLED: "true"
     depends_on:
       postgres:
         condition: service_healthy
@@ -55,7 +55,3 @@ volumes:
     driver: local
   formbricks_data:
     driver: local
-
-networks:
-  default:
-    name: formbricks_network

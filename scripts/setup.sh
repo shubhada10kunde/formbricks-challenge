@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Setting up Formbricks Challenge..."
+echo "Setting up Formbricks Challenge..."
 
 # Create virtual environment
 echo "Creating virtual environment..."
@@ -28,7 +28,7 @@ fi
 chmod +x scripts/*.sh 2>/dev/null || true
 chmod +x main.py
 
-echo "✅ Setup complete!"
+echo "Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Edit .env file with your API keys"
