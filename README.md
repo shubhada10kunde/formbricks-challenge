@@ -1,4 +1,4 @@
-# Formbricks Hiring Challenge Solution
+# Formbricks API Seeder
 
 A Python CLI tool that automates the generation and population of realistic survey data into Formbricks using **real APIs** and **local LLMs**.
 
