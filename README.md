@@ -2,7 +2,7 @@
 
 A Python CLI tool that automates the generation and population of realistic survey data into Formbricks using **real APIs** and **local LLMs**.
 
-## 🎯 Challenge Requirements Fully Met
+## Challenge Requirements Fully Met
 
 | Requirement                        | Status                             | Implementation                                |
 | ---------------------------------- | ---------------------------------- | --------------------------------------------- |
